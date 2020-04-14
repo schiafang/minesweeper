@@ -50,7 +50,8 @@ const view = {
   showBoard() {
     model.fields.forEach(item => {
       if (item.type === "mine") {
-        document.querySelector(`[data-index="${item.index}"]`).innerHTML = `<i class="fas fa-bomb"></i>`
+        //document.querySelector(`[data-index="${field}"]`).classList.remove('fas', 'fa-flag')
+        document.querySelector(`[data-index="${item.index}"]`).classList.add('fas', 'fa-bomb')
       }
     })
   },
