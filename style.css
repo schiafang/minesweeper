@@ -35,12 +35,21 @@ body {
   color: rgb(240, 240, 240);  
   text-align: center;
 }
-#reset {
+.reset {
   width: 48px;
   height: 48px;
   background-color: rgb(235, 225, 84);
   border-radius: 100px;
 }
+.reset:hover {
+cursor: pointer;
+border-bottom: 1px solid black;
+}
+.reset:active {
+  width: 45px;
+  height: 45px;
+}
+
 /* 下半部遊戲區 */
 .gamefield {
   width: 300px;
@@ -57,7 +66,7 @@ body {
   background-color: rgb(236, 235, 235);
 }
 /* other item */
-.fa-smile {
+.fa-smile, .fa-frown {
   color: rgb(0, 0, 0);
   font-size: 50px;
 }

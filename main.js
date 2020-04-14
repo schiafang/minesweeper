@@ -75,7 +75,8 @@ const view = {
    * 放置旗子顯示在格子上
    */
   showFlag(field) {
-    if ((model.fields[field].isFlagged === false) && (model.fields[field].isDigged !== true)) {
+    if (model.flags > 0 && (model.fields[field].isFlagged === false) && (model.fields[field].isDigged !== true)) {
+      console.log(model.flags)
       model.fields[field].isFlagged = true
       document.querySelector(`[data-index="${field}"]`).classList.add('fas', 'fa-flag')
       model.flags -= 1
@@ -175,6 +176,9 @@ const controller = {
       document.querySelector(`[data-index="${field}"]`).style.backgroundColor = 'red'
       view.showBoard()
       alert('BOOOOOOOOOOM!')
+      document.querySelector('.fa-smile').classList.add('fa-frown')
+      document.querySelector('.fa-smile').classList.remove('fa-smile')
+
       this.currentState = GAME_STATE.GameFinished
     } else if (model.fields[field].isFlagged === false) {
       view.showFieldContent(field)
@@ -185,6 +189,10 @@ const controller = {
    * reset() 重新開始
    */
   reset() {
+    if (document.querySelector('.reset').classList.contains('fa-frown')) {
+      document.querySelector('.fa-frown').classList.add('fa-smile')
+      document.querySelector('.fa-frown').classList.remove('fa-frown')
+    }
     controller.createGame(9, 9, 12)
     this.currentState = GAME_STATE.FirstClickAwaits
   },
@@ -227,19 +235,22 @@ this.addEventListener('contextmenu', event => {
   event.preventDefault()
 })
 // 重新開始
-document.querySelector('#reset').addEventListener('click', event => controller.reset())
+document.querySelector('.reset').addEventListener('click', event => {
+  controller.reset()
+  console.log(event.target)
+})
 // 點擊左鍵事件
 document.querySelector('.gamefield').addEventListener('click', event => {
   if (controller.currentState !== GAME_STATE.GameFinished) {
     controller.dig(event.target.dataset.index)
-    console.log(model.fields[event.target.dataset.index])
+    //console.log(model.fields[event.target.dataset.index])
   }
 })
 // 點擊右鍵事件
 document.querySelector('.gamefield').addEventListener('contextmenu', event => {
   if (controller.currentState !== GAME_STATE.GameFinished) {
     view.showFlag(event.target.dataset.index)
-    console.log(model.fields[event.target.dataset.index])
+    //console.log(model.fields[event.target.dataset.index])
   }
 })
 //---------------------- Execute -----------------------//
